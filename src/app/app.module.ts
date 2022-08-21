@@ -5,16 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogoComponent } from './logo/logo.component';
 import { BackgroundComponent } from './background/background.component';
+import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
+import { MenuCriancasComponent } from './menu-criancas/menu-criancas.component';
+import { IconeCriancaComponent } from './icone-crianca/icone-crianca.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogoComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    MenuComponent,
+    FooterComponent,
+    MenuCriancasComponent,
+    IconeCriancaComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

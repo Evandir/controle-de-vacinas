@@ -1,6 +1,20 @@
-<div>
-  <app-background></app-background>
-  <div class="logocentral">
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<header>
+  <app-menu></app-menu>
+</header>
+
+<main>
+  <div class="intro">
     <app-logo></app-logo>
+    <app-menu-criancas></app-menu-criancas>
   </div>
-</div>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+

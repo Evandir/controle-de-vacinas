@@ -1,17 +1,9 @@
 div {
   background-color: #018786;
-}
-
-.menubackground {
-  background-color: #6200EE;
-  padding: 5px;
+  background-image: url("../../assets/resources/images/imagembackground1.jpg");
 }
 
 .imagembackground {
   width: 100%;
   align-self: center;
-}
-
-footer {
-  height: 70px;
 }

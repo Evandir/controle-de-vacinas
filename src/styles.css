@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~materialize-css/dist/css/materialize.css";
+@import "~material-icons/css/material-icons.css";
+
+.intro {
+  text-align: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  min-height: 680px;
+  background-image: url("/assets/resources/images/imagembackground1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

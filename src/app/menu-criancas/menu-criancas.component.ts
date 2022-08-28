@@ -1,3 +1,4 @@
+import { ArrayCriancasTeste } from './../util/array-criancas-teste';
 import { Component, OnInit } from '@angular/core';
 import { Crianca } from '../model/crianca';
 
@@ -11,7 +12,10 @@ export class MenuCriancasComponent implements OnInit {
   nomeCrianca? : string;
   criancas! : Crianca[];
 
-  constructor() { }
+  constructor() {
+    // Instanciada Crianças via contrututor para atividade de input e output
+    this.criancas = new ArrayCriancasTeste().criancas;
+   }
 
   ngOnInit(): void {  }
 

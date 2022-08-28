@@ -1,5 +1,5 @@
 import { Crianca } from './../model/crianca';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-icone-crianca',
@@ -8,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IconeCriancaComponent implements OnInit {
   urlFoto! : string;
-  // Instanciada Criança para teste de property bind
-  crianca = new Crianca("João", "01/07/2012", "Masculino", false, "Sul");
+  // Criança recebida do componente pai
+  @Input() crianca! : Crianca;
 
   constructor() { }
 
   ngOnInit(): void {
-    if (this.crianca.sexo == "Masculino") {
+    if (this.crianca.sexo == "Menino") {
       this.urlFoto = "/assets/resources/images/icons8-boy-64.png";
     } else {
       this.urlFoto = "/assets/resources/images/icons8-girl-64.png";

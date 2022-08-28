@@ -1,15 +1,21 @@
+import { CriancaVacina } from "./crianca-vacina";
+
 export class Crianca {
+  id : number;
   nome : string;
   dataNascimento : string;
   sexo : string;
   alergia : boolean;
   regiao : string;
+  vacinas : CriancaVacina[];
 
-  constructor (nome : string, dataNascimento : string, sexo : string, alergia : boolean, regiao : string) {
+  constructor (id : number, nome : string, dataNascimento : string, sexo : string, alergia : boolean, regiao : string) {
+    this.id = id;
     this.nome = nome;
     this.dataNascimento = dataNascimento;
     this.sexo = sexo;
     this.alergia = alergia;
     this.regiao = regiao;
+    this.vacinas = [];
   }
 }

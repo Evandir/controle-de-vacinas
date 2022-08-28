@@ -10,6 +10,11 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuCriancasComponent } from './menu-criancas/menu-criancas.component';
 import { IconeCriancaComponent } from './icone-crianca/icone-crianca.component';
 import { FormsModule } from '@angular/forms';
+import { HomePageComponent } from './home-page/home-page.component';
+import { ListaCriancasComponent } from './lista-criancas/lista-criancas.component';
+import { ListaVacinasComponent } from './lista-vacinas/lista-vacinas.component';
+import { CriancaDetalheComponent } from './crianca-detalhe/crianca-detalhe.component';
+import { CriancaVacinasComponent } from './crianca-vacinas/crianca-vacinas.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { FormsModule } from '@angular/forms';
     MenuComponent,
     FooterComponent,
     MenuCriancasComponent,
-    IconeCriancaComponent
+    IconeCriancaComponent,
+    HomePageComponent,
+    ListaCriancasComponent,
+    ListaVacinasComponent,
+    CriancaDetalheComponent,
+    CriancaVacinasComponent
   ],
   imports: [
     BrowserModule,

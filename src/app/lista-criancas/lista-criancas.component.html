@@ -1,0 +1,40 @@
+<div class="intro">
+  <div class="container">
+    <ul class="collection">
+      <!-- Mais tarde será usado ngFor para montar as listas dinamicamente -->
+      <li class="collection-item avatar">
+        <img src="/assets/resources/images/icons8-{{criancas[0].sexo}}-64.png" class="circle">
+        <span class="title">{{criancas[0].nome}}</span>
+        <p>{{criancas[0].dataNascimento}}<br>
+          {{criancas[0].sexo}}
+        </p>
+        <!-- Esta usando routerLink com parametro obrigatório para passar o id da crianca -->
+        <a [routerLink]="['/crianca', this.criancas[0].id]" class="secondary-content"><i class="material-icons">assignment_ind</i></a>
+      </li>
+      <li class="collection-item avatar">
+        <img src="/assets/resources/images/icons8-{{criancas[1].sexo}}-64.png" class="circle">
+        <span class="title">{{criancas[1].nome}}</span>
+        <p>{{criancas[1].dataNascimento}}<br>
+          {{criancas[1].sexo}}
+        </p>
+        <a [routerLink]="['/crianca', this.criancas[1].id]" class="secondary-content"><i class="material-icons">assignment_ind</i></a>
+      </li>
+      <li class="collection-item avatar">
+        <img src="/assets/resources/images/icons8-{{criancas[2].sexo}}-64.png" class="circle">
+        <span class="title">{{criancas[2].nome}}</span>
+        <p>{{criancas[2].dataNascimento}}<br>
+          {{criancas[2].sexo}}
+        </p>
+        <a [routerLink]="['/crianca', this.criancas[2].id]" class="secondary-content"><i class="material-icons">assignment_ind</i></a>
+      </li>
+      <li class="collection-item avatar">
+        <img src="/assets/resources/images/icons8-{{criancas[3].sexo}}-64.png" class="circle">
+        <span class="title">{{criancas[3].nome}}</span>
+        <p>{{criancas[3].dataNascimento}}<br>
+          {{criancas[3].sexo}}
+        </p>
+        <a [routerLink]="['/crianca', this.criancas[3].id]" class="secondary-content"><i class="material-icons">assignment_ind</i></a>
+      </li>
+    </ul>
+  </div>
+</div>

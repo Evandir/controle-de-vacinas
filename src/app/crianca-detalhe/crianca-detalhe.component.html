@@ -1,0 +1,24 @@
+<div class="intro">
+  <div class="container crianca-detalhe">
+    <div class="row">
+      <div class="col s5">
+        <img class="foto-crianca" src="{{urlFoto}}">
+      </div>
+      <div class="col s7">
+        <h1>{{crianca.nome}}</h1>
+        <p>Data de Nascimento: {{crianca.dataNascimento}}</p>
+        <p>{{crianca.sexo}}</p>
+        <p>Alergia aos componentes das vacinas? {{isAlergica(this.crianca.alergia)}}</p>
+        <p>Região de Residencia: {{crianca.regiao}}</p>
+        <h2>Próximas Vacinas:</h2>
+        <div class="proximas-vacinas">
+          <ul>
+            <li [class] = "isVacinaEmDia(crianca.vacinas[0].recebida)">* {{crianca.vacinas[0].vacina.nome}} - {{crianca.vacinas[0].dataPlanejada}} - {{isVacinaEmDia(crianca.vacinas[0].recebida)}}</li>
+            <li [class] = "isVacinaEmDia(crianca.vacinas[1].recebida)">* {{crianca.vacinas[1].vacina.nome}} - {{crianca.vacinas[1].dataPlanejada}} - {{isVacinaEmDia(crianca.vacinas[1].recebida)}}</li>
+            <li [class] = "isVacinaEmDia(true)">* {{crianca.vacinas[2].vacina.nome}} - {{crianca.vacinas[2].dataPlanejada}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

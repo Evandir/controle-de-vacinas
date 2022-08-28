@@ -1,12 +1,11 @@
 .logo {
-  display: inline-block;
   text-align: center;
   vertical-align: middle;
 }
 
 .imagemlogo {
   display: inline-block;
-  margin: 3%;
+  margin: 1%;
 }
 
 .titulologo {

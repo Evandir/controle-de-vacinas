@@ -15,6 +15,7 @@ import { ListaCriancasComponent } from './lista-criancas/lista-criancas.componen
 import { ListaVacinasComponent } from './lista-vacinas/lista-vacinas.component';
 import { CriancaDetalheComponent } from './crianca-detalhe/crianca-detalhe.component';
 import { CriancaVacinasComponent } from './crianca-vacinas/crianca-vacinas.component';
+import { AdicionaCriancaComponent } from './adiciona-crianca/adiciona-crianca.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CriancaVacinasComponent } from './crianca-vacinas/crianca-vacinas.compo
     ListaCriancasComponent,
     ListaVacinasComponent,
     CriancaDetalheComponent,
-    CriancaVacinasComponent
+    CriancaVacinasComponent,
+    AdicionaCriancaComponent
   ],
   imports: [
     BrowserModule,

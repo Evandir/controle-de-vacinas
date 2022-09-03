@@ -1,9 +1,7 @@
-import { ArrayCriancasTeste } from './../util/array-criancas-teste';
-import { CriancaVacina } from './../model/crianca-vacina';
 import { Crianca } from './../model/crianca';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Vacina } from '../model/vacina';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CriancaStorageService } from '../services/crianca-storage.service';
 
 @Component({
   selector: 'app-crianca-detalhe',
@@ -15,14 +13,24 @@ export class CriancaDetalheComponent implements OnInit {
   crianca! : Crianca;
   urlFoto! : String;
 
-  constructor(private route: ActivatedRoute) {  }
+  isShowMessage: boolean = false;
+  isSuccess!: boolean;
+  message!: string;
+
+  constructor(private router: Router, private route: ActivatedRoute, private criancaService: CriancaStorageService) {  }
 
   ngOnInit(): void {
     let idParam = +this.route.snapshot.params['id'];
-    // Pegar a Criança do array de crianças instaciado na classe teste
-    let criancas = new ArrayCriancasTeste().criancas;
 
-    this.crianca = criancas.filter((c) => {return c.id === idParam})[0];
+    this.crianca = this.criancaService.getCrianca(idParam);
+
+    this.route.queryParams.subscribe((params) => {
+      if (params['tipo'] == 'novo') {
+        this.isShowMessage = true;
+        this.isSuccess = true;
+        this.message = 'Cadastro realizado com sucesso!';
+      }
+    });
 
     if (this.crianca.sexo == "Menino") {
       this.urlFoto = "/assets/resources/images/icons8-boy-64.png"
@@ -43,8 +51,13 @@ export class CriancaDetalheComponent implements OnInit {
     if (recebida) {
       return "";
     } else {
-      return "ATRASADA";
+      return " - ATRASADA";
     }
+  }
+
+  delete() {
+    this.criancaService.deleteCrianca(this.crianca.id);
+    this.router.navigate(["/"]);
   }
 
 }

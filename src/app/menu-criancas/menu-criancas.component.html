@@ -12,13 +12,18 @@
       </form>
     </div>
     <div class="row">
-      <!-- Mais tarde sera usado o ngFor para montar as lsitas dinamicamente -->
       <!-- Esta passando o objeto Crianca para o componente filho -->
-      <div class="col s3"><app-icone-crianca [crianca]="criancas[0]"></app-icone-crianca></div>
-      <div class="col s3"><app-icone-crianca [crianca]="criancas[1]"></app-icone-crianca></div>
-      <div class="col s3"><app-icone-crianca [crianca]="criancas[2]"></app-icone-crianca></div>
-      <div class="col s3"><app-icone-crianca [crianca]="criancas[3]"></app-icone-crianca></div>
-      <div class="col s3" (click)="onSubmit()"><div><a class="btn-floating btn-add-icon waves-effect waves-light"><i class="material-icons add-icon">add_circle_outline</i></a><p>Adicionar</p></div></div>
+      <div *ngFor="let c of criancas">
+        <div class="col s3"><app-icone-crianca [crianca]="c"></app-icone-crianca></div>
+      </div>
+      <div class="col s3" (click)="onSubmit()">
+        <div>
+          <a class="btn-floating btn-add-icon waves-effect waves-light">
+            <i class="material-icons add-icon">add_circle_outline</i>
+          </a>
+          <p>Adicionar</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

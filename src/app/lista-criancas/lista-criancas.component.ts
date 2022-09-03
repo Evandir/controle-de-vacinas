@@ -1,6 +1,6 @@
-import { ArrayCriancasTeste } from './../util/array-criancas-teste';
 import { Component, OnInit } from '@angular/core';
 import { Crianca } from '../model/crianca';
+import { CriancaStorageService } from '../services/crianca-storage.service';
 
 @Component({
   selector: 'app-lista-criancas',
@@ -11,12 +11,12 @@ export class ListaCriancasComponent implements OnInit {
 
   criancas! : Crianca[];
 
-  constructor() {
-    //Pega as crianças da classe de teste
-    this.criancas = new ArrayCriancasTeste().criancas;
-   }
+  constructor(private criancaService: CriancaStorageService) {
+
+  }
 
   ngOnInit(): void {
+    this.criancas = this.criancaService.getCriancas();
   }
 
 }

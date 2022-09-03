@@ -1,6 +1,7 @@
-import { ArrayCriancasTeste } from './../util/array-criancas-teste';
 import { Component, OnInit } from '@angular/core';
 import { Crianca } from '../model/crianca';
+import { Router } from '@angular/router';
+import { CriancaStorageService } from '../services/crianca-storage.service';
 
 @Component({
   selector: 'app-menu-criancas',
@@ -12,15 +13,15 @@ export class MenuCriancasComponent implements OnInit {
   nomeCrianca? : string;
   criancas! : Crianca[];
 
-  constructor() {
-    // Instanciada Crianças via contrututor para atividade de input e output
-    this.criancas = new ArrayCriancasTeste().criancas;
-   }
+  constructor(private router: Router, private criancaService: CriancaStorageService) {
 
-  ngOnInit(): void {  }
+  }
+
+  ngOnInit(): void {
+    this.criancas = this.criancaService.getCriancas();
+  }
 
   onSubmit() {
-    alert(this.nomeCrianca);
-    this.nomeCrianca = "";
+    this.router.navigate(['/crianca']);
   }
 }

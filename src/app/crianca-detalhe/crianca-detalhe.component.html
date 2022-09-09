@@ -34,9 +34,9 @@
         <p>Região de Residencia: {{crianca.regiao}}</p>
         <h2>Próximas Vacinas:</h2>
         <div class="proximas-vacinas">
-          <p *ngIf="this.crianca.vacinas">Não há vacinas programadas!</p>
-          <ul *ngFor="let cv of this.crianca.vacinas">
-            <li [class] = "isVacinaEmDia(cv.recebida)">* {{cv.vacina.nome}} - {{cv.dataPlanejada | date: "dd/MM/yyyy"}}{{isVacinaEmDia(cv.recebida)}}</li>
+          <p *ngIf="this.criancaVacinas.length == 0">Não há vacinas programadas!</p>
+          <ul *ngFor="let cv of this.criancaVacinas | slice:0:6">
+            <li [class] = "isVacinaEmDia(!isVacinaAtrasada(cv))">* {{cv.vacina.nome}} - {{cv.dataPlanejada | date: "dd/MM/yyyy"}}{{isVacinaEmDia(!isVacinaAtrasada(cv))}}</li>
           </ul>
         </div>
       </div>

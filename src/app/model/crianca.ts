@@ -7,7 +7,7 @@ export class Crianca {
   sexo : string;
   alergia : boolean;
   regiao : string;
-  vacinas : CriancaVacina[];
+  // criancaVacinas : CriancaVacina[];
 
   constructor (id : number, nome : string, dataNascimento : string, sexo : string, alergia : boolean, regiao : string) {
     this.id = id;
@@ -16,6 +16,6 @@ export class Crianca {
     this.sexo = sexo;
     this.alergia = alergia;
     this.regiao = regiao;
-    this.vacinas = [];
+    // this.criancaVacinas = [];
   }
 }

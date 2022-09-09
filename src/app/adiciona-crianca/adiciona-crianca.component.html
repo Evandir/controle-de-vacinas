@@ -1,6 +1,15 @@
 <div class="intro">
   <div class="container crianca-detalhe">
     <div class="row">
+      <div
+        id="msg-cadastro"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.blue]="this.isSuccess"
+        *ngIf="this.isShowMessage"
+      >
+        {{ this.message }}
+      </div>
       <div class="col s5">
         <img class="foto-crianca"  src={{urlFoto}}>
       </div>

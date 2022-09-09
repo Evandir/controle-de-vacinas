@@ -1,7 +1,7 @@
+import { CriancaPromiseService } from './../services/crianca-promise.service';
 import { Crianca } from './../model/crianca';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { CriancaStorageService } from '../services/crianca-storage.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,9 +16,16 @@ export class AdicionaCriancaComponent implements OnInit {
   crianca! : Crianca;
   urlFoto? : String;
 
+  isShowMessage: boolean = false;
+  isSuccess!: boolean;
+  message!: string;
+
   regioes = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"];
 
-  constructor(private router: Router, private criancaService: CriancaStorageService) { }
+  constructor(
+    private router: Router,
+    private criancaService: CriancaPromiseService
+  ) { }
 
   ngOnInit(): void {
 
@@ -28,10 +35,29 @@ export class AdicionaCriancaComponent implements OnInit {
   }
 
   onSubmit() {
-    this.criancaService.save(this.crianca);
-    this.form.reset();
 
-    this.router.navigate(['/crianca' , this.crianca.id], { queryParams: { tipo: 'novo' } });
+    this.criancaService.save(this.crianca)
+    .then((values) => {
+      if (values != null) {
+        this.crianca = values;
+        this.router.navigate(['/crianca' , this.crianca.id], { queryParams: { tipo: 'novo' } });
+      } else {
+        this.isSuccess = false;
+        this.message = "Não foi possível adicionar a Criança";
+        this.isShowMessage = true;
+        console.log("Não foi possível adicionar a Criança");
+        this.form.reset();
+      }
+    })
+    .catch((e) => {
+      this.isSuccess = false;
+      this.message = e;
+      this.isShowMessage = true;
+      console.log(e);
+    })
+    .finally(() => {
+      console.log('A operação foi finalizada!');
+    });
   }
 
   onRadioClick(sexo : String) {

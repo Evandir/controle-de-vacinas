@@ -1,6 +1,7 @@
 import { ArrayVacinas } from './../util/array-vacinas';
 import { Vacina } from './../model/vacina';
 import { Component, OnInit } from '@angular/core';
+import { VacinaPromiseService } from '../services/vacina-promise.service';
 
 @Component({
   selector: 'app-lista-vacinas',
@@ -9,13 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaVacinasComponent implements OnInit {
 
-  vacinas : Vacina[];
+  vacinas! : Vacina[];
 
-  constructor() {
-    this.vacinas = new ArrayVacinas().vacinas;
-   }
+  constructor(private vacinaPromiseService : VacinaPromiseService) {
+  }
 
   ngOnInit(): void {
+    this.vacinaPromiseService
+      .getVacinas()
+      .then((vacinas) => {
+        if (vacinas != undefined) {
+          this.vacinas = vacinas;
+        }
+      });
   }
 
 }

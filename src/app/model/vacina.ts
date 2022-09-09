@@ -1,9 +1,9 @@
 export class Vacina {
-  id : number;
-  nome : string;
-  previne : string;
-  idade : number;
-  dose : number;
+  public id : number;
+  public nome : string;
+  public previne : string;
+  public idade : number;
+  public dose : number;
 
   constructor (id : number, nome : string, previne : string, idade : number, dose : number) {
     this.id = id;

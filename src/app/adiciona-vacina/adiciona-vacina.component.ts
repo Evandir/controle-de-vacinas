@@ -1,29 +1,31 @@
-import { CriancaVacina } from './../model/crianca-vacina';
 import { Crianca } from './../model/crianca';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { CriancaVacina } from '../model/crianca-vacina';
+import { Vacina } from '../model/vacina';
 import { CriancaPromiseService } from '../services/crianca-promise.service';
+import { VacinaPromiseService } from '../services/vacina-promise.service';
 import { CriancaVacinaPromiseService } from '../services/crianca-vacina-promise.service';
 
 @Component({
-  selector: 'app-crianca-detalhe',
-  templateUrl: './crianca-detalhe.component.html',
-  styleUrls: ['./crianca-detalhe.component.css']
+  selector: 'app-adiciona-vacina',
+  templateUrl: './adiciona-vacina.component.html',
+  styleUrls: ['./adiciona-vacina.component.css']
 })
-export class CriancaDetalheComponent implements OnInit {
+export class AdicionaVacinaComponent implements OnInit {
 
   crianca! : Crianca;
   urlFoto! : String;
-  criancaVacinas! : CriancaVacina[];
+  vacinas : Vacina[] = [];
 
   isShowMessage: boolean = false;
   isSuccess!: boolean;
   message!: string;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private criancaService: CriancaPromiseService,
+    private vacinaService: VacinaPromiseService,
     private criancaVacinaService: CriancaVacinaPromiseService
   ) {  }
 
@@ -35,12 +37,28 @@ export class CriancaDetalheComponent implements OnInit {
       if (c != null) {
         this.crianca = c;
         this.criancaVacinaService.getByCriancaId(this.crianca.id)
-        .then((cv) => {
-          if (cv != null) {
-            this.criancaVacinas = cv;
+        .then((cvs) => {
+          if (cvs != null) {
+            this.vacinaService.getVacinas()
+            .then((values) => {
+              if (values != null) {
+                values.forEach((v) => {
+                  let achou = false;
+                  cvs.forEach((cv) => {
+                    if (v.id == cv.vacina.id) {
+                      achou = true;
+                    }
+                  });
+                  if (!achou) {
+                    this.vacinas.push(v);
+                  }
+                });
+              }
+            });
           }
         });
       };
+
 
       this.route.queryParams.subscribe((params) => {
         if (params['tipo'] == 'novo') {
@@ -68,55 +86,29 @@ export class CriancaDetalheComponent implements OnInit {
 
   }
 
-  isAlergica(alergia: boolean) {
-    if (alergia) {
-      return "Sim";
-    } else {
-      return "Não";
-    }
-  }
-
-  isVacinaEmDia(recebida : boolean): String {
-    if (recebida) {
-      return "";
-    } else {
-      return " - ATRASADA";
-    }
-  }
-
   isVacinaAtrasada(cv : CriancaVacina): boolean {
     if (cv.recebida) {
       return false;
     }
     let hoje = new Date();
     let dataVacina = new Date(cv.dataPlanejada);
-    return dataVacina.getTime() < hoje.getTime();
+    return dataVacina.getDate() < hoje.getDate();
   }
 
-  delete() {
+  addVacina(v : Vacina) {
+    let criancaVacina = new CriancaVacina(0, this.crianca, v);
+    // this.crianca.vacinas.push(criancaVacina);
 
-    let promises : Promise<CriancaVacina | undefined>[] = [];
-
-    this.criancaVacinas.forEach ((cv) => {
-      promises.push(this.criancaVacinaService.delete(cv.id));
-    });
-
-    Promise.all(promises)
-    .then((cvs) => {
-      this.criancaService.delete(this.crianca.id)
-      .then((c) => {
-        if (c != null) {
-          this.crianca = c;
-        };
-        this.router.navigate(["/"]);
-      })
-    })
-    .catch((e) => {
-      this.isSuccess = false;
-      this.message = e;
-      this.isShowMessage = true;
-      console.log(e);
-    });
+    this.criancaVacinaService.save(criancaVacina)
+    .then((value) => {
+      if (value != null) {
+        this.isShowMessage = true;
+        this.isSuccess = true;
+        this.message = "Vacina adcionada à Crianca!";
+        this.vacinas = this.vacinas.filter((vacina) => vacina.id != v.id);
+      }
+    }
+    );
   }
 
 }

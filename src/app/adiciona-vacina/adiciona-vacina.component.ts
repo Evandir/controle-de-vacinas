@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CriancaVacina } from '../model/crianca-vacina';
 import { Vacina } from '../model/vacina';
-import { CriancaPromiseService } from '../services/crianca-promise.service';
-import { VacinaPromiseService } from '../services/vacina-promise.service';
-import { CriancaVacinaPromiseService } from '../services/crianca-vacina-promise.service';
+import { VacinaService } from '../services/vacina.service';
+import { CriancaService } from '../services/crianca.service';
+import { CriancaVacinaService } from '../services/crianca-vacina.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-adiciona-vacina',
@@ -24,64 +25,69 @@ export class AdicionaVacinaComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private criancaService: CriancaPromiseService,
-    private vacinaService: VacinaPromiseService,
-    private criancaVacinaService: CriancaVacinaPromiseService
+    private criancaService: CriancaService,
+    private vacinaService: VacinaService,
+    private criancaVacinaService: CriancaVacinaService
   ) {  }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe((params) => {
+      if (params['tipo'] == 'novo') {
+        this.isShowMessage = true;
+        this.isSuccess = true;
+        this.message = 'Cadastro realizado com sucesso!';
+      }
+    });
+
     let idParam = +this.route.snapshot.params['id'];
 
     this.criancaService.getById(idParam)
-    .then((c) => {
-      if (c != null) {
-        this.crianca = c;
-        this.criancaVacinaService.getByCriancaId(this.crianca.id)
-        .then((cvs) => {
-          if (cvs != null) {
-            this.vacinaService.getVacinas()
-            .then((values) => {
-              if (values != null) {
-                values.forEach((v) => {
-                  let achou = false;
-                  cvs.forEach((cv) => {
-                    if (v.id == cv.vacina.id) {
-                      achou = true;
-                    }
-                  });
-                  if (!achou) {
-                    this.vacinas.push(v);
+    .subscribe({
+      next : (c) => {
+        if (c != null) {
+          this.crianca = c;
+          this.criancaVacinaService.getByCriancaId(this.crianca.id)
+          .subscribe((vacinasDaCrianca) => {
+            if (vacinasDaCrianca != null) {
+              this.vacinaService.getVacinas()
+              .subscribe({
+                next : (todasVacinas) => {0
+                  if (todasVacinas != null) {
+                    todasVacinas.forEach((v) => {
+                      let achou = false;
+                      vacinasDaCrianca.forEach((cv) => {
+                        if (v.id == cv.vacina.id) {
+                          achou = true;
+                        }
+                      });
+                      if (!achou) {
+                        this.vacinas.push(v);
+                      }
+                    });
                   }
-                });
-              }
-            });
-          }
-        });
-      };
+                },
+                error : err => {
+                  this.isShowMessage = true;
+                  this.isSuccess = false;
+                  this.message = err;
+                }
+              });
+            }
+          });
+        };
 
-
-      this.route.queryParams.subscribe((params) => {
-        if (params['tipo'] == 'novo') {
-          this.isShowMessage = true;
-          this.isSuccess = true;
-          this.message = 'Cadastro realizado com sucesso!';
+        if (this.crianca.sexo == "Menino") {
+          this.urlFoto = "/assets/resources/images/icons8-boy-64.png"
+        } else {
+          this.urlFoto = "/assets/resources/images/icons8-girl-64.png"
         }
-      });
-
-      if (this.crianca.sexo == "Menino") {
-        this.urlFoto = "/assets/resources/images/icons8-boy-64.png"
-      } else {
-        this.urlFoto = "/assets/resources/images/icons8-girl-64.png"
+      },
+      error : err => {
+        this.isShowMessage = true;
+        this.isSuccess = false;
+        this.message = err;
       }
-    })
-    .catch((e) => {
-      this.isSuccess = false;
-      this.message = e;
-      this.isShowMessage = true;
-      console.log(e);
-    })
-    .finally(() => {
-      console.log('A operação foi finalizada!');
     });
 
   }
@@ -100,7 +106,7 @@ export class AdicionaVacinaComponent implements OnInit {
     // this.crianca.vacinas.push(criancaVacina);
 
     this.criancaVacinaService.save(criancaVacina)
-    .then((value) => {
+    .subscribe((value) => {
       if (value != null) {
         this.isShowMessage = true;
         this.isSuccess = true;

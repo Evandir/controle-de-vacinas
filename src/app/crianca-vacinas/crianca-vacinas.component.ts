@@ -1,11 +1,9 @@
 import { CriancaVacina } from './../model/crianca-vacina';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Crianca } from '../model/crianca';
-import { CriancaPromiseService } from '../services/crianca-promise.service';
-import { Vacina } from '../model/vacina';
-import { VacinaPromiseService } from '../services/vacina-promise.service';
-import { CriancaVacinaPromiseService } from '../services/crianca-vacina-promise.service';
+import { CriancaVacinaService } from '../services/crianca-vacina.service';
+import { CriancaService } from '../services/crianca.service';
 
 @Component({
   selector: 'app-crianca-vacinas',
@@ -26,24 +24,25 @@ export class CriancaVacinasComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private criancaService: CriancaPromiseService,
-    private criancaVacinaService: CriancaVacinaPromiseService
+    private criancaService: CriancaService,
+    private criancaVacinaService: CriancaVacinaService
   ) {  }
 
   ngOnInit(): void {
     let idParam = +this.route.snapshot.params['id'];
 
+    this.route.queryParams.subscribe((params) => {
+      if (params['tipo'] == 'novo') {
+        this.isShowMessage = true;
+        this.isSuccess = true;
+        this.message = 'Cadastro realizado com sucesso!';
+      }
+    });
+
     this.criancaService.getById(idParam)
-    .then((values) => {
+    .subscribe((values) => {
       if (values != null) {
         this.crianca = values;
-        this.route.queryParams.subscribe((params) => {
-          if (params['tipo'] == 'novo') {
-            this.isShowMessage = true;
-            this.isSuccess = true;
-            this.message = 'Cadastro realizado com sucesso!';
-          }
-        });
 
         if (this.crianca.sexo == "Menino") {
           this.urlFoto = "/assets/resources/images/icons8-boy-64.png"
@@ -52,28 +51,26 @@ export class CriancaVacinasComponent implements OnInit {
         }
 
         this.criancaVacinaService.getByCriancaId(this.crianca.id)
-        .then((cv) => {
-          if (cv != null) {
-            this.criancaVacinas = cv;
-            this.criancaVacinas.forEach((cv) => {
-              if (cv.recebida) {
-                this.vacinasRecebidas.push(cv);
-              } else {
-                this.vacinasPlanejadas.push(cv);
-              }
-            });
+        .subscribe({
+          next : (cv) => {
+            if (cv != null) {
+              this.criancaVacinas = cv;
+              this.criancaVacinas.forEach((cv) => {
+                if (cv.recebida) {
+                  this.vacinasRecebidas.push(cv);
+                } else {
+                  this.vacinasPlanejadas.push(cv);
+                }
+              });
+            }
+          },
+          error : err => {
+            this.isShowMessage = true;
+            this.isSuccess = false;
+            this.message = err;
           }
         });
       };
-    })
-    .catch((e) => {
-      this.isSuccess = false;
-      this.message = e;
-      this.isShowMessage = true;
-      console.log(e);
-    })
-    .finally(() => {
-      console.log('A operação foi finalizada!');
     });
 
   }
@@ -92,10 +89,17 @@ export class CriancaVacinasComponent implements OnInit {
     v.dataRecebida = new Date().toString();
 
     this.criancaVacinaService.update(v)
-    .then((value) => {
-      if (value != null) {
-          this.vacinasRecebidas.push(value);
-          this.vacinasPlanejadas = this.vacinasPlanejadas.filter((cv) => cv.id != value.id);
+    .subscribe({
+      next : (value) => {
+        if (value != null) {
+            this.vacinasRecebidas.push(value);
+            this.vacinasPlanejadas = this.vacinasPlanejadas.filter((cv) => cv.id != value.id);
+        }
+      },
+      error : err => {
+        this.isShowMessage = true;
+        this.isSuccess = false;
+        this.message = err;
       }
     });
   }
@@ -105,10 +109,17 @@ export class CriancaVacinasComponent implements OnInit {
     v.dataRecebida = "";
 
     this.criancaVacinaService.update(v)
-    .then((value) => {
-      if (value != null) {
-        this.vacinasPlanejadas.push(value);
-        this.vacinasRecebidas = this.vacinasRecebidas.filter((cv) => cv.id != value.id);
+    .subscribe({
+      next : (value) => {
+        if (value != null) {
+          this.vacinasPlanejadas.push(value);
+          this.vacinasRecebidas = this.vacinasRecebidas.filter((cv) => cv.id != value.id);
+        }
+      },
+      error : err => {
+        this.isShowMessage = true;
+        this.isSuccess = false;
+        this.message = err;
       }
     });
   }

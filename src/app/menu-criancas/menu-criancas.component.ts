@@ -1,7 +1,7 @@
-import { CriancaPromiseService } from './../services/crianca-promise.service';
 import { Component, OnInit } from '@angular/core';
 import { Crianca } from '../model/crianca';
 import { Router } from '@angular/router';
+import { CriancaService } from '../services/crianca.service';
 
 @Component({
   selector: 'app-menu-criancas',
@@ -15,21 +15,20 @@ export class MenuCriancasComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private criancaService: CriancaPromiseService) { }
+    private criancaService: CriancaService) { }
 
   ngOnInit(): void {
 
     this.criancaService.getCriancas()
-    .then((values) => {
-      if (values != null) {
-        this.criancas = values;
-      };
-    })
-    .catch((e) => {
-      console.log(e);
-    })
-    .finally(() => {
-      console.log('A operação foi finalizada!');
+    .subscribe(
+      {
+      next : (values) => {
+        if (values != null) {
+          this.criancas = values;
+        };
+      },
+      error : err => console.log(err),
+      complete : () => console.log('A operação foi completa')
     });
   }
 

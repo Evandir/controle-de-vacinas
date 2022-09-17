@@ -1,5 +1,14 @@
 <div class="intro">
   <div class="container">
+    <div
+    id="msg-cadastro"
+    class="card-panel white-text"
+    [class.red]="!this.isSuccess"
+    [class.blue]="this.isSuccess"
+    *ngIf="this.isShowMessage"
+  >
+    {{ this.message }}
+  </div>
     <ul class="collection" *ngFor="let v of this.vacinas">
       <li class="collection-item">
         <div class="row">

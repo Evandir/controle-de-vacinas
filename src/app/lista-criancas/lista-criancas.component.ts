@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Crianca } from '../model/crianca';
-import { CriancaPromiseService } from '../services/crianca-promise.service';
+import { CriancaService } from '../services/crianca.service';
 
 @Component({
   selector: 'app-lista-criancas',
@@ -15,15 +15,15 @@ export class ListaCriancasComponent implements OnInit {
   isSuccess!: boolean;
   message!: string;
 
-  constructor(private criancaService: CriancaPromiseService) {
+  constructor(private criancaService: CriancaService) {
 
   }
 
   ngOnInit(): void {
 
-    this.criancaService
-      .getCriancas()
-      .then((criancas) => {
+    this.criancaService.getCriancas()
+    .subscribe({
+      next : (criancas) => {
         if (criancas != null) {
           this.criancas = criancas;
         };
@@ -32,16 +32,13 @@ export class ListaCriancasComponent implements OnInit {
           this.message = "Não há Crianças Cadastradas!";
           this.isShowMessage = true;
         };
-      })
-      .catch((e) => {
-        this.isSuccess = false;
-        this.message = e;
+      },
+      error : err => {
         this.isShowMessage = true;
-        console.log(e);
-      })
-      .finally(() => {
-        console.log('A operação foi finalizada!');
-      });
+        this.isSuccess = false;
+        this.message = err;
+      }
+    });
   }
 
 }

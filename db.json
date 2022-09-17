@@ -155,6 +155,79 @@
       "dose": 2
     }
   ],
-  "criancas": [],
-  "criancaVacinas": []
+  "criancas": [
+    {
+      "id": 1,
+      "nome": "Daniel de Souza",
+      "dataNascimento": "2015-05-13",
+      "sexo": "Menino",
+      "alergia": false,
+      "regiao": "Sul"
+    }
+  ],
+  "criancaVacinas": [
+    {
+      "id": 1,
+      "crianca": {
+        "id": 1,
+        "nome": "Daniel de Souza",
+        "dataNascimento": "2015-05-13",
+        "sexo": "Menino",
+        "alergia": false,
+        "regiao": "Sul"
+      },
+      "vacina": {
+        "id": 1,
+        "nome": "Hepatite B",
+        "previne": "Hepatite B",
+        "idade": 0,
+        "dose": 1
+      },
+      "recebida": true,
+      "dataPlanejada": "Tue May 12 2015",
+      "dataRecebida": "Sat Sep 17 2022 19:25:26 GMT-0300 (Horário Padrão de Brasília)"
+    },
+    {
+      "id": 2,
+      "crianca": {
+        "id": 1,
+        "nome": "Daniel de Souza",
+        "dataNascimento": "2015-05-13",
+        "sexo": "Menino",
+        "alergia": false,
+        "regiao": "Sul"
+      },
+      "vacina": {
+        "id": 2,
+        "nome": "BCG-ID",
+        "previne": "Formas graves de tuberculose",
+        "idade": 0,
+        "dose": 1
+      },
+      "recebida": true,
+      "dataPlanejada": "Tue May 12 2015",
+      "dataRecebida": "Sat Sep 17 2022 19:25:25 GMT-0300 (Horário Padrão de Brasília)"
+    },
+    {
+      "id": 3,
+      "crianca": {
+        "id": 1,
+        "nome": "Daniel de Souza",
+        "dataNascimento": "2015-05-13",
+        "sexo": "Menino",
+        "alergia": false,
+        "regiao": "Sul"
+      },
+      "vacina": {
+        "id": 3,
+        "nome": "Vacina Inativada Poliomelite (VIP)",
+        "previne": "Poliomielite inativada ou paralisia infantil",
+        "idade": 2,
+        "dose": 1
+      },
+      "recebida": false,
+      "dataPlanejada": "Sun Jul 12 2015",
+      "dataRecebida": ""
+    }
+  ]
 }

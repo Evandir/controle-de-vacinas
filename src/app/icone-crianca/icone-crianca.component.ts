@@ -15,9 +15,9 @@ export class IconeCriancaComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.crianca.sexo == "Menino") {
-      this.urlFoto = "/assets/resources/images/icons8-boy-64.png";
+      this.urlFoto = "assets/resources/images/icons8-boy-64.png";
     } else {
-      this.urlFoto = "/assets/resources/images/icons8-girl-64.png";
+      this.urlFoto = "assets/resources/images/icons8-girl-64.png";
     }
   }
 

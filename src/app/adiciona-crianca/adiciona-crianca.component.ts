@@ -31,7 +31,7 @@ export class AdicionaCriancaComponent implements OnInit {
 
     this.crianca = new Crianca(0, "", "", "", false, "");
 
-    this.urlFoto = "/assets/resources/images/icons8-add-50.png";
+    this.urlFoto = "assets/resources/images/icons8-add-50.png";
   }
 
   onSubmit() {
@@ -60,9 +60,9 @@ export class AdicionaCriancaComponent implements OnInit {
 
   onRadioClick(sexo : String) {
     if (sexo == "Menino") {
-      this.urlFoto = "/assets/resources/images/icons8-boy-64.png";
+      this.urlFoto = "assets/resources/images/icons8-boy-64.png";
     } else {
-      this.urlFoto = "/assets/resources/images/icons8-girl-64.png";
+      this.urlFoto = "assets/resources/images/icons8-girl-64.png";
     }
   }
 

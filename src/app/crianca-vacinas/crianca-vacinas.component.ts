@@ -45,9 +45,9 @@ export class CriancaVacinasComponent implements OnInit {
         this.crianca = values;
 
         if (this.crianca.sexo == "Menino") {
-          this.urlFoto = "/assets/resources/images/icons8-boy-64.png"
+          this.urlFoto = "assets/resources/images/icons8-boy-64.png"
         } else {
-          this.urlFoto = "/assets/resources/images/icons8-girl-64.png"
+          this.urlFoto = "assets/resources/images/icons8-girl-64.png"
         }
 
         this.criancaVacinaService.getByCriancaId(this.crianca.id)

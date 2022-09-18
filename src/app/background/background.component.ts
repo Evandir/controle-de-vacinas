@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BackgroundComponent implements OnInit {
 
+  backgroundImageUrl! : String;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.backgroundImageUrl = "assets/resources/images/imagembackground1.jpg";
   }
 
 }

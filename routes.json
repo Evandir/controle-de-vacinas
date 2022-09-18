@@ -1,0 +1,4 @@
+{
+
+  "/criancas/:id/vacinas": "/criancaVacinas?crianca.id=:id"
+}

@@ -1,0 +1,54 @@
+<div class="intro">
+  <div class="container crianca-detalhe">
+    <div class="row">
+      <div
+        id="msg-cadastro"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.blue]="this.isSuccess"
+        *ngIf="this.isShowMessage"
+      >
+        {{ this.message }}
+      </div>
+      <div class="col s5">
+        <div class="col s12">
+          <h1>{{crianca.nome}}</h1>
+        </div>
+        <div>
+          <img class="foto-crianca" src="{{urlFoto}}">
+        </div>
+        <div class="col s12">
+          <a [routerLink]="['/crianca', this.crianca.id, 'vacinas']"
+            class="btn waves-effect waves-light vacina-crianca">Vacinas da Criança
+            <i class="material-icons right">send</i>
+          </a>
+        </div>
+        <div class="col s12">
+          <a [routerLink]="['/crianca', this.crianca.id]"
+            class="btn waves-effect waves-light vacina-crianca">Crianca
+            <i class="material-icons right">assignment_ind</i>
+          </a>
+        </div>
+      </div>
+      <div class="col s7 lista-vacinas">
+        <h2>Vacinas:</h2>
+        <ul class="collection" *ngFor="let v of this.vacinas">
+          <li class="collection-item avatar">
+            <i class="material-icons circle">insert_chart</i>
+            <span class="title col s12">{{v.nome}}</span>
+            <div class="col s9">
+              <p>Previne {{v.previne}}</p>
+            </div>
+            <div class="col s3">
+              <p>{{v.idade}} meses</p>
+              <p>{{v.dose}}ª dose</p>
+            </div>
+            <a class="secondary-content btn-floating btn-add-icon waves-effect waves-light" (click)="addVacina(v)">
+              <i class="material-icons">add_circle_outline</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

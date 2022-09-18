@@ -1,0 +1,24 @@
+<div class="intro">
+  <div class="container">
+    <div
+        id="msg-cadastro"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.blue]="this.isSuccess"
+        *ngIf="this.isShowMessage"
+      >
+        {{ this.message }}
+      </div>
+    <ul class="collection" *ngFor="let c of this.criancas">
+      <li class="collection-item avatar">
+        <img src="assets/resources/images/icons8-{{c.sexo}}-64.png" class="circle">
+        <span class="title">{{c.nome}}</span>
+        <p>{{c.dataNascimento | date : "dd/MM/yyyy"}}<br>
+          {{c.sexo}}
+        </p>
+        <!-- Esta usando routerLink com parametro obrigatório para passar o id da crianca -->
+        <a [routerLink]="['/crianca', c.id]" class="secondary-content"><i class="material-icons">assignment_ind</i></a>
+      </li>
+    </ul>
+  </div>
+</div>

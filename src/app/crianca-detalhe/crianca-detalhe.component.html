@@ -1,0 +1,45 @@
+<div class="intro">
+  <div class="container crianca-detalhe">
+    <div class="row">
+      <div
+        id="msg-cadastro"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.blue]="this.isSuccess"
+        *ngIf="this.isShowMessage"
+      >
+        {{ this.message }}
+      </div>
+      <div class="col s5">
+        <div class="col s12">
+          <a class="btn waves-effect waves-light vacina-crianca red" (click)="delete()">Excluir Criança
+            <i class="material-icons right">delete</i>
+          </a>
+        </div>
+        <div>
+          <img class="foto-crianca" src="{{urlFoto}}">
+        </div>
+        <div class="col s12">
+          <a [routerLink]="['/crianca', this.crianca.id, 'vacinas']"
+            class="btn waves-effect waves-light vacina-crianca">Vacinas da Criança
+            <i class="material-icons right">send</i>
+          </a>
+        </div>
+      </div>
+      <div class="col s7">
+        <h1>{{crianca.nome}}</h1>
+        <p>Data de Nascimento: {{crianca.dataNascimento | date : 'dd/MM/yyyy'}}</p>
+        <p>{{crianca.sexo}}</p>
+        <p>Alergia aos componentes das vacinas? {{isAlergica(this.crianca.alergia)}}</p>
+        <p>Região de Residencia: {{crianca.regiao}}</p>
+        <h2>Próximas Vacinas:</h2>
+        <div class="proximas-vacinas">
+          <p *ngIf="this.criancaVacinas.length == 0">Não há vacinas programadas!</p>
+          <ul *ngFor="let cv of this.criancaVacinas | slice:0:6">
+            <li [class] = "isVacinaEmDia(!isVacinaAtrasada(cv))">* {{cv.vacina.nome}} - {{cv.dataPlanejada | date: "dd/MM/yyyy"}}{{isVacinaEmDia(!isVacinaAtrasada(cv))}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

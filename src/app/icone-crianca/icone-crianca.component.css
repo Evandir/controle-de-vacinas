@@ -1,0 +1,13 @@
+.icone-crianca {
+  text-align: center;
+  min-height: 120px;
+  max-height: 120px;
+}
+
+p {
+  color: black;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  margin: 0%;
+  text-align: center;
+}

@@ -1,0 +1,33 @@
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2em;
+  margin: 0%;
+}
+
+.crianca-detalhe {
+  background-color: #EFEFEF;
+}
+
+.foto-crianca {
+  width: 100%;
+}
+
+.vacina-crianca {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.proximas-vacinas {
+  background-color: #03DAC5;
+  padding: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.ATRASADA {
+  color: red;
+}

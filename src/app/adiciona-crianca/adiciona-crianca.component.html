@@ -1,0 +1,129 @@
+<div class="intro">
+  <div class="container crianca-detalhe">
+    <div class="row">
+      <div
+        id="msg-cadastro"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.blue]="this.isSuccess"
+        *ngIf="this.isShowMessage"
+      >
+        {{ this.message }}
+      </div>
+      <div class="col s5">
+        <img class="foto-crianca"  src={{urlFoto}}>
+      </div>
+      <form #form="ngForm" class="col s6" (submit)="onSubmit()">
+        <div class="input-field col s12">
+          <input
+            id="input-name"
+            name="input-name"
+            type="text"
+            class="validate"
+            [(ngModel)]="this.crianca.nome"
+            pattern="^(\s?[A-ZÀ-Ú][a-zà-ú]*)+(\s[a-zà-ú]*)?(\s[A-ZÀ-Ú][a-zà-ú]*)+"
+            #name="ngModel"
+            required
+          />
+          <label for="input-nomecrianca">Nome da Criança *</label>
+          <div class="red-text" [hidden]="name.valid || name.untouched">
+            Por favor, informe o nome completo da criança.
+          </div>
+          <span
+            class="helper-text"
+            data-error="O campo é inválido"
+            data-success="Ok!"
+          ></span>
+        </div>
+        <div class="input-field col s12">
+          <input
+            id="input-birthday"
+            name="input-birthday"
+            type="date"
+            class="validate"
+            [(ngModel)]="this.crianca.dataNascimento"
+            #birthday="ngModel"
+            required
+          />
+          <label for="input-birthday">Data de Nascimento *</label>
+          <div class="red-text" [hidden]="birthday.valid || birthday.untouched">
+            Por favor, informe a data de nascimento da criança.
+          </div>
+          <span
+            class="helper-text"
+            data-error="O campo é inválido"
+            data-success="Ok!">
+          </span>
+        </div>
+        <label class="col s12">Sexo *</label>
+        <div class="input-field">
+          <p class="col s6">
+            <label>
+              <input
+                id="input-sexo-menino"
+                name="input-sexo"
+                type="radio"
+                value="Menino"
+                class="validate"
+                [(ngModel)]="this.crianca.sexo"
+                #sexo="ngModel"
+                required
+                (click)="onRadioClick('Menino')"/>
+              <span>Menino</span>
+            </label>
+          </p>
+          <p class="col s6">
+            <label>
+              <input
+                id="input-sexo-menina"
+                name="input-sexo"
+                value="Menina"
+                type="radio"
+                class="validate"
+                [(ngModel)]="this.crianca.sexo"
+                #sexo="ngModel"
+                required
+                (click)="onRadioClick('Menina')"/>
+              <span>Menina</span>
+            </label>
+          </p>
+        </div>
+        <div class="input-field col s12">
+          <p>
+            <label>
+              <input
+                type="checkbox"
+                class="filled-in validate"
+                [(ngModel)]="this.crianca.alergia"
+                [ngModelOptions]="{standalone: true}"
+                #alergia="ngModel"
+                required/>
+              <span>Alergia aos componentes das vacinas?</span>
+            </label>
+          </p>
+        </div>
+        <div class="col s12">
+          <label>Região de Residencia</label>
+          <select
+            type="text"
+            class="browser-default validate"
+            [(ngModel)]="this.crianca.regiao"
+            [ngModelOptions]="{standalone: true}"
+            #regiao="ngModel">
+            <option value="" disabled selected>Selecione a Região</option>
+            <option *ngFor="let regiao of regioes" [ngValue]="regiao">{{regiao}}</option>
+          </select>
+        </div>
+        <div class="col s12">
+          <button
+            class="btn waves-effect waves-light add-crianca"
+            type="submit"
+            [disabled]="!form.valid"
+            name="action">Adicionar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

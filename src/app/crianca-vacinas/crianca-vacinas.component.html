@@ -1,0 +1,65 @@
+<div class="intro">
+  <div class="container crianca-detalhe">
+    <div class="row">
+      <div
+        id="msg-cadastro"
+        class="card-panel white-text"
+        [class.red]="!this.isSuccess"
+        [class.blue]="this.isSuccess"
+        *ngIf="this.isShowMessage"
+      >
+        {{ this.message }}
+      </div>
+      <div class="col s5">
+        <div class="col s12">
+          <h1>{{crianca.nome}}</h1>
+        </div>
+        <div>
+          <img class="foto-crianca" src="{{urlFoto}}">
+        </div>
+        <div class="col s12">
+          <a [routerLink]="['/crianca', this.crianca.id, 'vacina']"
+            class="btn waves-effect waves-light vacina-crianca">Adicionar Vacina
+            <i class="material-icons right">add_box</i>
+          </a>
+        </div>
+        <div class="col s12">
+          <a [routerLink]="['/crianca', this.crianca.id]"
+            class="btn waves-effect waves-light vacina-crianca">Crianca
+            <i class="material-icons right">assignment_ind</i>
+          </a>
+        </div>
+      </div>
+      <div class="col s7 lista-vacinas">
+        <h2>Próximas Vacinas:</h2>
+        <p *ngIf="this.vacinasPlanejadas.length == 0">Não há vacinas programadas!</p>
+        <ul class="collection" *ngFor="let v of this.vacinasPlanejadas | slice:0:2">
+          <li class="collection-item avatar">
+            <i class="material-icons circle"
+            [class.red]="isVacinaAtrasada(v)"
+            [class.yellow]="!isVacinaAtrasada(v)">insert_chart</i>
+            <span class="title col s7">{{v.vacina.nome}}</span>
+            <p class="col s5" [class.ATRASADA]="isVacinaAtrasada(v)">Planejada para: <br>{{v.dataPlanejada | date: "dd/MM/yyyy"}}</p>
+            <a class="secondary-content btn-floating btn-add-icon waves-effect waves-light" (click)="marcaVacina(v)">
+              <i class="material-icons">check_box_outline_blank</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col s7 lista-vacinas">
+        <h2>Últimas Vacinas Recebidas:</h2>
+        <p *ngIf="this.vacinasRecebidas.length == 0">Não há vacinas recebidas!</p>
+        <ul class="collection" *ngFor="let v of this.vacinasRecebidas | slice:0:2">
+          <li class="collection-item avatar">
+            <i class="material-icons circle green">insert_chart</i>
+            <span class="title col s7">{{v.vacina.nome}}</span>
+            <p class="col s5">Recebida em: <br>{{v.dataRecebida | date: "dd/MM/yyyy"}}</p>
+            <a class="secondary-content btn-floating btn-add-icon waves-effect waves-light" (click)="desmarcaVacina(v)">
+              <i class="material-icons">check_box</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

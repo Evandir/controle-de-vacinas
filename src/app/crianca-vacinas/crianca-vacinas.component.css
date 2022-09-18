@@ -1,0 +1,33 @@
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2em;
+  margin: 0%;
+}
+
+.crianca-detalhe {
+  background-color: #EFEFEF;
+}
+
+.foto-crianca {
+  width: 100%;
+}
+
+.vacina-crianca {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lista-vacinas {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  min-height: 16rem;
+  max-height: 16rem;
+}
+
+.ATRASADA {
+  color: red;
+}

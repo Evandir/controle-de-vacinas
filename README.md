@@ -6,7 +6,7 @@ O frontend da aplicação foi desenvolvido com Angular e o backend foi simulado 
 
 # Endereço de Deploy - GitHub Pages
 
-Ainda não tem
+https://evandir.github.io/controle-de-vacinas/
 
 # Protótipo
 
@@ -32,4 +32,4 @@ https://www.figma.com/file/thgNEDGilMksPlQ49I61MT/Controle-de-Vacinas?node-id=0%
 - [X] Apresentar uma lista de dados com a diretiva estrutural ngFor.
 - [X] Usar a diretiva ngIf
 - [X] Formatar a apresentação de dados com Pipes.
-- [ ] Build e deploy da aplicação.
+- [X] Build e deploy da aplicação.
